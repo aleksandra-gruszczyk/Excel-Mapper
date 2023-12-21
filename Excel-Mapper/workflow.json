@@ -7,7 +7,7 @@
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
-                    "body": "@variables('ResponseBody')"
+                    "body": "@variables('ResponseArray')"
                 },
                 "runAfter": {
                     "For_each": [
@@ -35,18 +35,6 @@
                 "type": "Foreach",
                 "foreach": "@body('Get_entities_(V2)')?['value']",
                 "actions": {
-                    "Append_to_string_variable": {
-                        "type": "AppendToStringVariable",
-                        "inputs": {
-                            "name": "ResponseBody",
-                            "value": "@body('Transform_using_Data_Mapper_XSLT')"
-                        },
-                        "runAfter": {
-                            "Transform_using_Data_Mapper_XSLT": [
-                                "SUCCEEDED"
-                            ]
-                        }
-                    },
                     "Transform_using_Data_Mapper_XSLT": {
                         "type": "Xslt",
                         "kind": "DataMapper",
@@ -56,6 +44,18 @@
                                 "source": "LogicApp",
                                 "name": "FirstMap.xslt"
                             }
+                        }
+                    },
+                    "Append_to_array_variable": {
+                        "type": "AppendToArrayVariable",
+                        "inputs": {
+                            "name": "ResponseArray",
+                            "value": "@body('Transform_using_Data_Mapper_XSLT')"
+                        },
+                        "runAfter": {
+                            "Transform_using_Data_Mapper_XSLT": [
+                                "SUCCEEDED"
+                            ]
                         }
                     }
                 },
@@ -70,8 +70,9 @@
                 "inputs": {
                     "variables": [
                         {
-                            "name": "ResponseBody",
-                            "type": "string"
+                            "name": "ResponseArray",
+                            "type": "array",
+                            "value": []
                         }
                     ]
                 },
