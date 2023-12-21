@@ -1,0 +1,30 @@
+{
+  "serviceProviderConnections": {
+    "azureTables": {
+      "parameterValues": {
+        "connectionString": "@appsetting('azureTables_connectionString')"
+      },
+      "parameterSetName": "connectionString",
+      "serviceProvider": {
+        "id": "/serviceProviders/azureTables"
+      },
+      "displayName": "lancomcwdata"
+    }
+  },
+  "managedApiConnections": {
+    "azuretables": {
+      "api": {
+        "id": "/subscriptions/4075a838-295d-4329-b803-3006c0a3b0b3/providers/Microsoft.Web/locations/australiaeast/managedApis/azuretables"
+      },
+      "connection": {
+        "id": "/subscriptions/4075a838-295d-4329-b803-3006c0a3b0b3/resourceGroups/DD-ExcelMapper/providers/Microsoft.Web/connections/azuretables-2"
+      },
+      "connectionRuntimeUrl": "https://8e61d7d083110421.05.common.logic-australiaeast.azure-apihub.net/apim/azuretables/285900b07fe74238aee4683f8a6ebb56/",
+      "authentication": {
+        "type": "Raw",
+        "scheme": "Key",
+        "parameter": "@appsetting('azuretables-connectionKey')"
+      }
+    }
+  }
+}

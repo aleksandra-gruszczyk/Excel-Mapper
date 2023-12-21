@@ -1,0 +1,12 @@
+$version: 1
+$input: JSON
+$output: JSON
+$sourceSchema: InputSchema.json
+$targetSchema: OutputSchema.json
+root:
+  PartitionKey: /root/PartitionKey
+  RowKey: /root/RowKey
+  Company:
+    Company_ID: /root/Company_ID
+    Company_Name: /root/Company_Name
+  Last_Update_UTC: /root/Last_Update_UTC

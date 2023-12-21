@@ -1,0 +1,73 @@
+{
+    "schema": "https://json-schema.org/draft/2019-09/schema",
+    "id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "PartitionKey",
+        "RowKey",
+        "Company",
+        "Last_Update_UTC"
+    ],
+    "properties": {
+        "PartitionKey": {
+            "type": "string",
+            "title": "The PartitionKey Schema",
+            "examples": [
+                "string"
+            ]
+        },
+        "RowKey": {
+            "type": "string",
+            "title": "The RowKey Schema",
+            "examples": [
+                "string"
+            ]
+        },
+        "Company": {
+            "type": "object",
+            "title": "The Company Schema",
+            "required": [
+                "Company_ID",
+                "Company_Name"
+            ],
+            "properties": {
+                "Company_ID": {
+                    "type": "string",
+                    "title": "The Company_ID Schema",
+                    "examples": [
+                        "string"
+                    ]
+                },
+                "Company_Name": {
+                    "type": "string",
+                    "title": "The Company_Name Schema",
+                    "examples": [
+                        "string"
+                    ]
+                }
+            },
+            "examples": [{
+                "Company_ID": "string",
+                "Company_Name": "string"
+            }]
+        },
+        "Last_Update_UTC": {
+            "type": "string",
+            "title": "The Last_Update_UTC Schema",
+            "examples": [
+                "string"
+            ]
+        }
+    },
+    "examples": [{
+        "PartitionKey": "string",
+        "RowKey": "string",
+        "Company": {
+            "Company_ID": "string",
+            "Company_Name": "string"
+        },
+        "Last_Update_UTC": "string"
+    }]
+}
