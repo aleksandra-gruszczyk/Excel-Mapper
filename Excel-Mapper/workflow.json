@@ -7,7 +7,7 @@
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
-                    "body": "@variables('ResponseBody')"
+                    "body": "@body('Get_entities_(V2)')"
                 },
                 "runAfter": {
                     "Get_entities_(V2)": [
