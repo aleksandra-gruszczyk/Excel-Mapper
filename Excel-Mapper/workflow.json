@@ -7,10 +7,10 @@
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
-                    "body": "@body('Get_entities_(V2)')"
+                    "body": "@variables('ResponseBody')"
                 },
                 "runAfter": {
-                    "Get_entities_(V2)": [
+                    "For_each": [
                         "SUCCEEDED"
                     ]
                 }
@@ -24,9 +24,62 @@
                         }
                     },
                     "method": "get",
-                    "path": "/v2/storageAccounts/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/tables/@{encodeURIComponent('mspnzlancomDataBackPlane')}/entities"
+                    "path": "/v2/storageAccounts/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/tables/@{encodeURIComponent('mspnzlancomDataBackPlane')}/entities",
+                    "queries": {
+                        "$top": 10
+                    }
                 },
                 "runAfter": {}
+            },
+            "For_each": {
+                "type": "Foreach",
+                "foreach": "@body('Get_entities_(V2)')?['value']",
+                "actions": {
+                    "Append_to_string_variable": {
+                        "type": "AppendToStringVariable",
+                        "inputs": {
+                            "name": "ResponseBody",
+                            "value": "@body('Transform_using_Data_Mapper_XSLT')"
+                        },
+                        "runAfter": {
+                            "Transform_using_Data_Mapper_XSLT": [
+                                "SUCCEEDED"
+                            ]
+                        }
+                    },
+                    "Transform_using_Data_Mapper_XSLT": {
+                        "type": "Xslt",
+                        "kind": "DataMapper",
+                        "inputs": {
+                            "content": "@items('For_each')",
+                            "map": {
+                                "source": "LogicApp",
+                                "name": "FirstMap.xslt"
+                            }
+                        }
+                    }
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Initialize_variable": {
+                "type": "InitializeVariable",
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "ResponseBody",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Get_entities_(V2)": [
+                        "SUCCEEDED"
+                    ]
+                }
             }
         },
         "contentVersion": "1.0.0.0",
